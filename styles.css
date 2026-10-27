@@ -1,0 +1,2896 @@
+/* ==========================================================================
+   GRUPPO SCOUT AGESCI BRANCALEONE 1 — FOGLIO DI STILE PRINCIPALE
+   Ispirato ai colori ufficiali AGESCI + Fazzolettone Brancaleone 1 + Layout Odoo
+   Palette: Blu Scout (#1B365D), Rosso Fazzolettone (#C82333), Verde Bosco (#235D43),
+            Viola AGESCI (#410E82), Oro AGESCI (#F5C114)
+   ========================================================================== */
+
+:root {
+  interpolate-size: allow-keywords;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-hand: "Caveat", cursive;
+
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-pill: 999px;
+  --container-max: 1220px;
+
+  /* Tema "Giorno al Campo" */
+  --bg-page: #f8f9fa;
+  --bg-tinted: #f3efe6;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-deep: #132744;
+  --forest-bg: #235d43;
+
+  --text-main: #142238;
+  --text-muted: #4a5b73;
+  --text-on-deep: #f8fafc;
+  --text-muted-on-deep: #cbd5e1;
+
+  --brand-navy: #1b365d;
+  --brand-red: #c82333;
+  --brand-green: #2d6a4f;
+  --agesci-purple: #410e82;
+  --agesci-gold: #f5c114;
+
+  --accent-primary: #c82333;
+  --accent-primary-hover: #a61b29;
+  --accent-secondary: #2d6a4f;
+  --accent-soft: rgba(200, 35, 51, 0.1);
+
+  --border-subtle: rgba(27, 54, 93, 0.12);
+  --shadow-sm: 0 6px 20px rgba(27, 54, 93, 0.06);
+  --shadow-md: 0 16px 40px rgba(27, 54, 93, 0.11);
+  --shadow-lg: 0 26px 60px rgba(27, 54, 93, 0.18);
+  --header-bg: rgba(20, 39, 71, 0.96);
+}
+
+/* Modalità "Sera al Bivacco" */
+html[data-theme="campfire"] {
+  --bg-page: #0b1320;
+  --bg-tinted: #111c2f;
+  --bg-surface: #16243b;
+  --bg-surface-elevated: #1c2d49;
+  --bg-deep: #070d17;
+  --forest-bg: #173f2d;
+
+  --text-main: #f5f2eb;
+  --text-muted: #b6c2d6;
+  --text-on-deep: #f8fafc;
+  --text-muted-on-deep: #cbd5e1;
+
+  --accent-primary: #ea6a1f;
+  --accent-primary-hover: #f5823b;
+  --accent-secondary: #f59e0b;
+  --accent-soft: rgba(245, 158, 11, 0.16);
+
+  --border-subtle: rgba(245, 158, 11, 0.18);
+  --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 18px 44px rgba(0, 0, 0, 0.48), 0 0 32px rgba(234, 106, 31, 0.08);
+  --shadow-lg: 0 28px 64px rgba(0, 0, 0, 0.62), 0 0 48px rgba(234, 106, 31, 0.15);
+  --header-bg: rgba(8, 15, 28, 0.96);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.65;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--agesci-gold);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  background: var(--brand-red);
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  z-index: 2000;
+  font-weight: 700;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 14px;
+}
+
+.container {
+  width: min(var(--container-max), calc(100% - 2.5rem));
+  margin-inline: auto;
+}
+
+/* Barra progresso superiore "Corda Scout" */
+.scroll-rope {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  z-index: 1200;
+  background: rgba(255, 255, 255, 0.14);
+}
+.scroll-rope__fill {
+  height: 100%;
+  width: 0%;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--brand-red),
+    var(--brand-red) 10px,
+    var(--agesci-gold) 10px,
+    var(--agesci-gold) 20px
+  );
+  transition: width 0.1s linear;
+}
+html[data-theme="campfire"] .scroll-rope__fill {
+  background: linear-gradient(90deg, #ea580c, #fbbf24);
+}
+
+/* ==========================================================================
+   HEADER BLU NOTTE ISTITUZIONALE (ISPIRATO A ODOO + EMBLEMA AGESCI.svg)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--header-bg);
+  color: #ffffff;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 28px rgba(10, 20, 38, 0.22);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 78px;
+  gap: 0.85rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.62rem;
+  text-decoration: none;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+/* Medaglione chiaro ad alto contrasto per far risaltare il viola (#410E82) e oro (#F5C114) di AGESCI.svg */
+.brand__emblem {
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  padding: 4px 6px;
+  border-radius: 11px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.26), 0 0 0 2px rgba(245, 193, 20, 0.55);
+  transition: transform 0.25s ease;
+}
+.brand__emblem img {
+  width: 32px;
+  height: auto;
+}
+.brand:hover .brand__emblem {
+  transform: translateY(-1px) scale(1.04);
+}
+
+.brand__scarf {
+  display: grid;
+  place-items: center;
+  transition: transform 0.3s ease;
+}
+.brand:hover .brand__scarf {
+  transform: rotate(-6deg) scale(1.06);
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.brand__eyebrow {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  color: var(--agesci-gold);
+}
+.brand__name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  font-size: 0.88rem;
+  position: relative;
+  padding-block: 4px;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.nav-link:hover {
+  color: #ffffff;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--agesci-gold);
+  transition: width 0.25s ease;
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  width: 100%;
+}
+
+.nav-link--highlight {
+  background: rgba(245, 193, 20, 0.16);
+  color: #fde047;
+  padding: 0.32rem 0.78rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(245, 193, 20, 0.42);
+  font-weight: 700;
+}
+.nav-link--highlight::after {
+  display: none;
+}
+.nav-link--highlight:hover {
+  background: rgba(245, 193, 20, 0.28);
+  color: #ffffff;
+}
+
+.nav-cta-mobile {
+  display: none;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.18);
+  border-color: var(--agesci-gold);
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  padding: 10px;
+}
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   PULSANTI (STILE PILLOLA ODOO AD ALTO CONTRASTO)
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  padding: 0.8rem 1.45rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn--sm {
+  padding: 0.52rem 1.05rem;
+  font-size: 0.85rem;
+}
+.btn--lg {
+  padding: 0.92rem 1.65rem;
+  font-size: 0.98rem;
+}
+.btn--full {
+  width: 100%;
+}
+
+.btn--red,
+.btn--primary {
+  background: var(--accent-primary);
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(200, 35, 51, 0.28);
+}
+.btn--red:hover,
+.btn--primary:hover {
+  background: var(--accent-primary-hover);
+}
+html[data-theme="campfire"] .btn--red,
+html[data-theme="campfire"] .btn--primary {
+  box-shadow: 0 10px 28px rgba(234, 106, 31, 0.36);
+}
+
+.btn--white {
+  background: #ffffff;
+  color: #142747;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+}
+.btn--white:hover {
+  background: #f1f5f9;
+}
+
+.btn--ghost {
+  background: var(--bg-surface);
+  color: var(--text-main);
+  border-color: var(--border-subtle);
+}
+.btn--ghost:hover {
+  border-color: var(--accent-primary);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--text-main);
+  border-color: var(--border-subtle);
+  flex: 1;
+  font-size: 0.9rem;
+  padding: 0.7rem 1rem;
+}
+.btn--outline:hover {
+  border-color: var(--accent-primary);
+  background: var(--accent-soft);
+}
+
+.btn--whatsapp {
+  background: #1fa855;
+  color: #ffffff;
+  font-size: 1.02rem;
+  box-shadow: 0 10px 24px rgba(31, 168, 85, 0.28);
+}
+.btn--whatsapp:hover {
+  background: #188c45;
+}
+
+/* ==========================================================================
+   BLOCCO 1: HERO IMMERSIVA BLU SCOUT (ISPIRATA A ODOO + POLAROID REALE BR1)
+   ========================================================================== */
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #132744 0%, #1b365d 54%, #18434d 100%);
+  color: #ffffff;
+  padding-block: clamp(2.8rem, 5.5vw, 4.8rem) clamp(4.8rem, 7.5vw, 6.6rem);
+  overflow: hidden;
+}
+html[data-theme="campfire"] .hero {
+  background: linear-gradient(135deg, #09101d 0%, #16243b 52%, #2e1911 100%);
+}
+
+.hero__ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 14% 22%, rgba(245, 193, 20, 0.14), transparent 40%),
+    radial-gradient(circle at 82% 35%, rgba(200, 35, 51, 0.18), transparent 44%);
+}
+html[data-theme="campfire"] .hero__ambient {
+  background-image:
+    radial-gradient(circle at 75% 45%, rgba(234, 106, 31, 0.26), transparent 50%),
+    radial-gradient(circle at 18% 24%, rgba(245, 158, 11, 0.15), transparent 42%);
+}
+
+.hero__grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: clamp(2rem, 4.5vw, 4rem);
+}
+
+.hero-official-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.42rem 1rem 0.42rem 0.55rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #f8fafc;
+  font-size: 0.84rem;
+  margin-bottom: 1.25rem;
+  backdrop-filter: blur(8px);
+}
+.hero-official-pill__logo {
+  background: #ffffff;
+  padding: 3px 4px;
+  border-radius: 7px;
+  width: 26px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.15rem, 4vw, 3.4rem);
+  line-height: 1.13;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.2rem;
+  color: #ffffff;
+}
+.hero__title em {
+  font-style: italic;
+  color: #fde047;
+  text-decoration: underline;
+  text-decoration-color: var(--brand-red);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+
+.hero__lead {
+  font-size: clamp(1.03rem, 1.22vw, 1.16rem);
+  color: rgba(241, 245, 249, 0.9);
+  margin: 0 0 1.85rem;
+  max-width: 60ch;
+}
+.hero__lead strong {
+  color: #ffffff;
+}
+
+.hero__cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-bottom: 2.15rem;
+}
+
+.hero__trust-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.trust-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 0.9rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: #ffffff;
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+.trust-pill:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.17);
+  border-color: var(--agesci-gold);
+}
+.trust-pill__icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.trust-pill strong {
+  display: block;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  color: #ffffff;
+}
+.trust-pill small {
+  display: block;
+  font-size: 0.75rem;
+  color: #dbeafe;
+  margin-top: 2px;
+}
+
+.polaroid-stage {
+  position: relative;
+  max-width: 425px;
+  margin-inline: auto;
+}
+
+.hero-polaroid {
+  margin: 0;
+  background: #ffffff;
+  padding: 14px 14px 20px;
+  border-radius: 20px;
+  box-shadow: 0 28px 64px rgba(0, 0, 0, 0.42);
+  transform: rotate(1.6deg);
+  transition: transform 0.4s ease;
+}
+.hero-polaroid:hover {
+  transform: rotate(0deg) scale(1.01);
+}
+.hero-polaroid__img-wrap {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+}
+.hero-polaroid__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-polaroid__caption {
+  font-family: var(--font-hand);
+  font-size: 1.38rem;
+  line-height: 1.2;
+  color: #1b365d;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.floating-card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.68rem 0.95rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface-elevated);
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+  font-size: 0.82rem;
+  z-index: 3;
+}
+.floating-card__svg {
+  width: 30px;
+  height: auto;
+  flex-shrink: 0;
+  background: #ffffff;
+  padding: 3px 4px;
+  border-radius: 7px;
+}
+.floating-card__emoji {
+  font-size: 1.35rem;
+}
+.floating-card strong {
+  display: block;
+  font-size: 0.84rem;
+}
+.floating-card span {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+.floating-card--top {
+  top: 18px;
+  left: -24px;
+}
+.floating-card--bottom {
+  bottom: 64px;
+  right: -18px;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+.floating-card--bottom:hover {
+  transform: scale(1.04);
+  border-color: var(--accent-primary);
+}
+
+/* Onda morbida inferiore della Hero */
+.hero__wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  line-height: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero__wave svg {
+  width: 100%;
+  height: clamp(36px, 5vw, 64px);
+  display: block;
+}
+.wave-fill-page {
+  fill: var(--bg-page);
+  transition: fill 0.4s ease;
+}
+
+/* ==========================================================================
+   SEZIONI COMUNI
+   ========================================================================== */
+.section {
+  padding-block: clamp(4rem, 6.5vw, 6rem);
+}
+.section--tinted {
+  background-color: var(--bg-tinted);
+}
+
+.section-header {
+  max-width: 780px;
+  margin: 0 auto 2.8rem;
+  text-align: center;
+}
+
+.section-kicker {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  margin-bottom: 0.55rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 3.2vw, 2.72rem);
+  line-height: 1.16;
+  margin: 0 0 0.95rem;
+}
+
+.section-subtitle {
+  font-size: 1.06rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ==========================================================================
+   BLOCCO 2: CHI SIAMO + SCHEDA EMBLEMA UFFICIALE AGESCI (#chi-siamo)
+   ========================================================================== */
+.identity-layout {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: clamp(2rem, 4vw, 3.25rem);
+  align-items: start;
+}
+
+.identity-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 1.25rem;
+}
+
+.identity-tab {
+  padding: 0.62rem 1.05rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.identity-tab:hover {
+  border-color: var(--accent-primary);
+}
+.identity-tab.is-active {
+  background: var(--brand-navy);
+  color: #ffffff;
+  border-color: var(--brand-navy);
+  box-shadow: var(--shadow-sm);
+}
+html[data-theme="campfire"] .identity-tab.is-active {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.identity-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.5rem, 3vw, 2.15rem);
+  box-shadow: var(--shadow-md);
+}
+
+.identity-panel__tag {
+  display: inline-block;
+  padding: 0.28rem 0.8rem;
+  border-radius: var(--radius-pill);
+  background: var(--accent-soft);
+  color: var(--accent-primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+}
+html[data-theme="campfire"] .identity-panel__tag {
+  color: #fbbf24;
+}
+
+.identity-panel h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.3vw, 1.9rem);
+  line-height: 1.22;
+  margin: 0 0 0.85rem;
+}
+
+.identity-panel p {
+  color: var(--text-muted);
+  margin: 0 0 0.95rem;
+}
+.identity-panel p strong {
+  color: var(--text-main);
+}
+
+.identity-highlights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.id-stat {
+  background: var(--bg-tinted);
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+}
+.id-stat strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--accent-primary);
+}
+html[data-theme="campfire"] .id-stat strong {
+  color: #fbbf24;
+}
+.id-stat span {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+/* Card dedicata al vero simbolo AGESCI.svg */
+.agesci-emblem-card {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.15rem 1.35rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 5px solid var(--agesci-purple);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+html[data-theme="campfire"] .agesci-emblem-card {
+  border-left-color: var(--agesci-gold);
+}
+.agesci-emblem-card__badge {
+  flex-shrink: 0;
+  background: #ffffff;
+  padding: 10px 12px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(65, 14, 130, 0.14);
+  border: 1px solid rgba(65, 14, 130, 0.12);
+}
+.agesci-emblem-card__badge img {
+  width: 68px;
+  height: auto;
+}
+.agesci-emblem-card__body strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  margin-bottom: 0.28rem;
+  color: var(--text-main);
+}
+.agesci-emblem-card__body p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+.agesci-emblem-card__body p strong {
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.identity-photos {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.id-photo {
+  margin: 0;
+  background: var(--bg-surface);
+  padding: 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+.id-photo img {
+  border-radius: 12px;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.id-photo figcaption {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0.55rem 0.5rem 0.15rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   BLOCCO 3: IL VIDEO GIRATO A BRANCALEONE & IDEATO DA GUIDE ED ESPLORATORI
+   ========================================================================== */
+.reel-showcase {
+  display: grid;
+  grid-template-columns: minmax(290px, 355px) 1fr;
+  gap: clamp(2rem, 4.5vw, 3.75rem);
+  align-items: center;
+  max-width: 1090px;
+  margin-inline: auto;
+}
+
+.reel-player-col {
+  display: flex;
+  justify-content: center;
+}
+
+.reel-phone-frame {
+  position: relative;
+  width: 100%;
+  max-width: 345px;
+  aspect-ratio: 480 / 832;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #070d17;
+  border: 6px solid #162947;
+  box-shadow: 0 28px 64px rgba(19, 39, 68, 0.32);
+}
+html[data-theme="campfire"] .reel-phone-frame {
+  border-color: #2c4166;
+  box-shadow: 0 28px 64px rgba(0, 0, 0, 0.65), 0 0 36px rgba(234, 106, 31, 0.16);
+}
+
+.reel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.reel-big-play {
+  position: absolute;
+  inset: 0 0 74px 0;
+  z-index: 3;
+  border: 0;
+  background: radial-gradient(circle, rgba(15, 23, 42, 0.18) 0%, rgba(15, 23, 42, 0.52) 100%);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+.reel-phone-frame.is-playing .reel-big-play {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.reel-big-play__circle {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: var(--brand-red);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-size: 1.75rem;
+  padding-left: 4px;
+  box-shadow: 0 12px 30px rgba(200, 35, 51, 0.58), 0 0 0 6px rgba(255, 255, 255, 0.26);
+  transition: transform 0.2s ease;
+}
+.reel-big-play:hover .reel-big-play__circle {
+  transform: scale(1.08);
+}
+
+.reel-big-play__text {
+  background: rgba(11, 19, 32, 0.85);
+  padding: 0.42rem 0.98rem;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.86rem;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(6px);
+}
+
+.reel-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  padding: 0.9rem 0.95rem 0.95rem;
+  background: linear-gradient(to top, rgba(7, 13, 23, 0.96) 0%, rgba(7, 13, 23, 0.76) 68%, transparent 100%);
+  color: #ffffff;
+}
+
+.reel-progress-wrap {
+  margin-bottom: 0.52rem;
+}
+
+.reel-scrubber {
+  width: 100%;
+  height: 6px;
+  accent-color: var(--agesci-gold);
+  cursor: pointer;
+  display: block;
+}
+
+.reel-controls__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+}
+
+.reel-ctrl-btn {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: var(--radius-pill);
+  padding: 0.32rem 0.72rem;
+  font-size: 0.77rem;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background-color 0.2s ease;
+}
+.reel-ctrl-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.reel-time {
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #e2e8f0;
+}
+
+/* Box speciale di credito alle Guide e agli Esploratori */
+.youth-credit-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.35rem 1.5rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(245, 193, 20, 0.18) 0%, rgba(45, 106, 79, 0.12) 100%);
+  border: 2px solid rgba(245, 193, 20, 0.65);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
+}
+html[data-theme="campfire"] .youth-credit-banner {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(45, 106, 79, 0.18) 100%);
+}
+.youth-credit-banner__icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+  font-size: 1.65rem;
+  box-shadow: var(--shadow-sm);
+}
+.youth-credit-banner strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: 0.35rem;
+  color: var(--text-main);
+}
+.youth-credit-banner p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.58;
+}
+.youth-credit-banner p strong {
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--text-main);
+}
+
+.reel-highlights {
+  display: grid;
+  gap: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.reel-highlight-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.95rem;
+  padding: 1.15rem 1.3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.reel-highlight-card__icon {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--bg-tinted);
+  display: grid;
+  place-items: center;
+  font-size: 1.35rem;
+}
+
+.reel-highlight-card strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.06rem;
+  margin-bottom: 0.25rem;
+  color: var(--text-main);
+}
+
+.reel-highlight-card p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.reel-cta-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   BLOCCO 4: SFATIAMO I FALSI MITI (BOX STILE ODOO + 4 CARTE 3D GIREVOLI)
+   ========================================================================== */
+.stereotipi-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 3rem);
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.stereotipi-banner-photo {
+  margin: 0;
+  background: var(--bg-surface);
+  padding: 10px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+}
+.stereotipi-banner-photo img {
+  border-radius: var(--radius-md);
+  width: 100%;
+  object-fit: cover;
+}
+.stereotipi-banner-photo figcaption {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0.55rem 0.4rem 0.15rem;
+  font-weight: 600;
+}
+
+.odoo-myth-callouts {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1.35rem;
+}
+.odoo-myth-box {
+  background: var(--bg-tinted);
+  border-left: 4px solid var(--brand-red);
+  border-radius: var(--radius-sm);
+  padding: 0.95rem 1.15rem;
+}
+.odoo-myth-box__myth {
+  display: block;
+  color: var(--accent-primary);
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+html[data-theme="campfire"] .odoo-myth-box__myth {
+  color: #fbbf24;
+}
+.odoo-myth-box p {
+  margin: 0;
+  font-size: 0.91rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.myth-progress {
+  margin: 0 auto 2rem;
+  max-width: 520px;
+  text-align: center;
+}
+.myth-progress__bar-bg {
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(27, 54, 93, 0.12);
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+html[data-theme="campfire"] .myth-progress__bar-bg {
+  background: rgba(255, 255, 255, 0.12);
+}
+.myth-progress__bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-primary), #1fa855);
+  border-radius: var(--radius-pill);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.myth-progress__text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.myth-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  gap: 1.35rem;
+}
+
+.myth-card {
+  perspective: 1200px;
+  min-height: 320px;
+}
+
+.myth-card__btn {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  display: block;
+}
+
+.myth-card__inner {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.myth-card.is-flipped .myth-card__inner {
+  transform: rotateY(180deg);
+}
+
+.myth-card__face {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius-lg);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+
+.myth-card__face--front {
+  background: var(--bg-surface);
+  color: var(--text-main);
+  transform: rotateY(0deg);
+}
+.myth-card__btn:hover .myth-card__face--front {
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.myth-card__face--back {
+  background: linear-gradient(155deg, #1b365d 0%, #2d6a4f 100%);
+  color: #ffffff;
+  transform: rotateY(180deg);
+}
+html[data-theme="campfire"] .myth-card__face--back {
+  background: linear-gradient(155deg, #243859 0%, #5c2b16 100%);
+}
+
+.myth-tag {
+  align-self: flex-start;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-pill);
+}
+.myth-tag--false {
+  background: rgba(200, 35, 51, 0.12);
+  color: var(--accent-primary);
+}
+html[data-theme="campfire"] .myth-tag--false {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+}
+.myth-tag--true {
+  background: rgba(46, 204, 113, 0.24);
+  color: #86efac;
+}
+
+.myth-card__icon {
+  font-size: 2.4rem;
+  margin-block: 0.45rem;
+}
+
+.myth-card__face h3 {
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  line-height: 1.3;
+  margin: 0.3rem 0;
+}
+
+.myth-card__face--back p {
+  font-size: 0.93rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.93);
+  margin: 0.4rem 0;
+}
+
+.myth-card__hint,
+.myth-card__back-hint {
+  font-size: 0.84rem;
+  font-weight: 700;
+  margin: 0;
+}
+.myth-card__hint {
+  color: var(--accent-primary);
+}
+.myth-card__back-hint {
+  color: #fde68a;
+}
+
+.myth-unlocked {
+  margin-top: 2rem;
+  padding: 1.35rem 1.75rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  border: 2px solid #1fa855;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+.myth-unlocked[hidden] {
+  display: none;
+}
+.myth-unlocked__badge {
+  font-size: 2rem;
+}
+.myth-unlocked p {
+  margin: 0.25rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   BLOCCO 5: COMPETENZE PRATICHE (GRIGLIA 2x2 ODOO + HOTSPOT + NODO PIANO)
+   ========================================================================== */
+.craft-odoo-grid {
+  display: grid;
+  grid-template-columns: 1.04fr 0.96fr;
+  gap: clamp(2rem, 4vw, 3.25rem);
+  align-items: center;
+}
+
+.craft-lead {
+  color: var(--text-muted);
+  font-size: 1.04rem;
+  margin: 0 0 1.45rem;
+}
+
+.skill-cards-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.95rem;
+}
+
+.skill-mini-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--brand-navy);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.15rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.skill-mini-card:nth-child(2) {
+  border-left-color: var(--brand-green);
+}
+.skill-mini-card:nth-child(3) {
+  border-left-color: var(--brand-red);
+}
+.skill-mini-card:nth-child(4) {
+  border-left-color: var(--agesci-gold);
+}
+.skill-mini-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.skill-mini-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  margin: 0 0 0.35rem;
+  color: var(--text-main);
+}
+.skill-mini-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.hotspot-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem;
+  box-shadow: var(--shadow-md);
+}
+.hotspot-card__top {
+  margin-bottom: 0.5rem;
+}
+
+.skill-stage__badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-pill);
+  background: var(--accent-soft);
+  color: var(--accent-primary);
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+html[data-theme="campfire"] .skill-stage__badge {
+  color: #fbbf24;
+}
+
+.hotspot-frame {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #0f172a;
+}
+.hotspot-frame--4x3 {
+  aspect-ratio: 4 / 3;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-subtle);
+}
+.hotspot-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hotspot-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  background: var(--accent-primary);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.2rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.hotspot-pin::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  opacity: 0.75;
+  animation: hotspotRipple 2s infinite;
+}
+.hotspot-pin:hover,
+.hotspot-pin.is-selected {
+  transform: translate(-50%, -50%) scale(1.18);
+  background: #1fa855;
+}
+@keyframes hotspotRipple {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+.hotspot-Readout {
+  margin-top: 0.9rem;
+  padding: 0.85rem 1.05rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-tinted);
+  border-left: 4px solid var(--accent-primary);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.92rem;
+}
+.hotspot-Readout p {
+  margin: 0;
+}
+
+.inline-agesci-icon {
+  display: inline-block;
+  width: 18px;
+  height: auto;
+  vertical-align: -4px;
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 1px 2px;
+  margin-inline: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
+}
+
+/* Laboratorio Tecnico Nodo Piano */
+.knot-lab {
+  margin-top: 2.6rem;
+  padding: clamp(1.5rem, 3.2vw, 2.4rem);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 2.2rem;
+  align-items: center;
+}
+
+.knot-lab__text h3 {
+  font-family: var(--font-display);
+  font-size: 1.58rem;
+  line-height: 1.22;
+  margin: 0.25rem 0 0.75rem;
+}
+.knot-lab__text p {
+  color: var(--text-muted);
+  margin: 0;
+}
+.knot-lab__text p strong {
+  color: var(--text-main);
+}
+
+.knot-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-block: 1.2rem;
+}
+
+.knot-step-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.48rem;
+  padding: 0.52rem 0.92rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-tinted);
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 0.84rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.knot-step-btn__num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  color: var(--brand-navy);
+  display: grid;
+  place-items: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+html[data-theme="campfire"] .knot-step-btn__num {
+  color: #fbbf24;
+}
+
+.knot-step-btn.is-active {
+  background: var(--brand-navy);
+  color: #ffffff;
+  border-color: var(--brand-navy);
+}
+html[data-theme="campfire"] .knot-step-btn.is-active {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+.knot-step-btn.is-active .knot-step-btn__num {
+  background: #ffffff;
+  color: var(--brand-navy);
+}
+
+.knot-step-btn--warn.is-active {
+  background: #b91c1c;
+  border-color: #b91c1c;
+}
+.knot-step-btn--warn.is-active .knot-step-btn__num {
+  color: #b91c1c;
+}
+
+.knot-explanation-box {
+  padding: 0.95rem 1.15rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-tinted);
+  border-left: 4px solid var(--brand-green);
+  font-size: 0.93rem;
+  color: var(--text-main);
+}
+.knot-explanation-box.is-warning {
+  border-left-color: #dc2626;
+}
+
+.knot-svg-card {
+  background: var(--bg-tinted);
+  border-radius: var(--radius-md);
+  padding: 1.15rem 1.3rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.knot-svg-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+}
+
+.knot-status-pill {
+  padding: 0.24rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: rgba(31, 168, 85, 0.16);
+  color: #16803d;
+  font-weight: 800;
+}
+html[data-theme="campfire"] .knot-status-pill {
+  color: #86efac;
+}
+.knot-status-pill.is-error {
+  background: rgba(220, 38, 38, 0.16);
+  color: #dc2626;
+}
+html[data-theme="campfire"] .knot-status-pill.is-error {
+  color: #fca5a5;
+}
+
+.knot-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Stili corde tecniche SVG con vera separazione sopra/sotto */
+.rope-gap {
+  fill: none;
+  stroke: var(--bg-surface);
+  stroke-width: 27;
+  stroke-linecap: butt;
+}
+.rope-border {
+  fill: none;
+  stroke-width: 20;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.rope-border--blue {
+  stroke: #0d213d;
+}
+.rope-border--red {
+  stroke: #6e0f19;
+}
+
+.rope-core {
+  fill: none;
+  stroke-width: 15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.rope-core--blue {
+  stroke: #235fa4;
+}
+.rope-core--red {
+  stroke: #d92b3a;
+}
+
+.rope-twist {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.32);
+  stroke-width: 3.5;
+  stroke-dasharray: 7 9;
+  stroke-linecap: round;
+}
+
+.rope-label {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  fill: var(--text-muted);
+}
+
+.knot-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.65rem;
+}
+.legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+.legend-dot--blue {
+  background: #235fa4;
+}
+.legend-dot--red {
+  background: #d92b3a;
+}
+
+/* ==========================================================================
+   BLOCCO 6A: FASCIA VERDE BOSCO CON ONDE ISPIRATE A ODOO (#viaggi-valori)
+   ========================================================================== */
+.forest-band {
+  position: relative;
+  background-color: var(--bg-page);
+}
+
+/* Onda curva superiore che raccorda #competenze (bg-tinted) al verde bosco */
+.forest-band__wave-top {
+  background-color: var(--bg-tinted);
+  color: var(--forest-bg);
+  line-height: 0;
+  margin-bottom: -1px;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+.forest-band__wave-top svg {
+  width: 100%;
+  height: clamp(44px, 6vw, 86px);
+  display: block;
+}
+
+.forest-band__inner {
+  background-color: var(--forest-bg);
+  color: #ffffff;
+  padding-block: clamp(3rem, 5.5vw, 4.8rem);
+  transition: background-color 0.4s ease;
+}
+
+.forest-header {
+  max-width: 740px;
+  margin: 0 auto 2.6rem;
+  text-align: center;
+}
+
+.forest-pill {
+  display: inline-block;
+  padding: 0.34rem 0.95rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fde047;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.7rem;
+}
+
+.forest-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.95rem, 3.4vw, 2.85rem);
+  line-height: 1.15;
+  margin: 0 0 0.85rem;
+  color: #ffffff;
+}
+
+.forest-subtitle {
+  font-size: 1.06rem;
+  color: rgba(241, 245, 249, 0.9);
+  margin: 0;
+}
+
+/* 3 Card Bianche dei Valori ispirate al sito Odoo */
+.forest-values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.35rem;
+}
+
+.forest-value-card {
+  background: #ffffff;
+  color: #142238;
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.6rem;
+  box-shadow: 0 18px 40px rgba(8, 28, 19, 0.24);
+  transition: transform 0.25s ease;
+}
+html[data-theme="campfire"] .forest-value-card {
+  background: #f8fafc;
+}
+.forest-value-card:hover {
+  transform: translateY(-4px);
+}
+.forest-value-card__icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: #f1f5f9;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.05rem;
+}
+.forest-value-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.32rem;
+  margin: 0 0 0.55rem;
+  color: #1b365d;
+}
+.forest-value-card p {
+  margin: 0;
+  font-size: 0.94rem;
+  color: #475569;
+  line-height: 1.58;
+}
+
+/* Card foto reale del fuoco di bivacco incastonata nella sezione verde */
+.forest-campfire-feature {
+  margin-top: 2.2rem;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 2rem;
+  align-items: center;
+  background: rgba(10, 31, 21, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.2rem, 2.8vw, 1.85rem);
+  backdrop-filter: blur(8px);
+}
+.forest-campfire-feature__media {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.32);
+}
+.forest-campfire-feature__media img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.forest-tag-amber {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-pill);
+  background: rgba(245, 193, 20, 0.2);
+  color: #fde047;
+  font-size: 0.8rem;
+  font-weight: 800;
+  margin-bottom: 0.65rem;
+}
+.forest-campfire-feature__text h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.3vw, 1.9rem);
+  margin: 0 0 0.65rem;
+  color: #ffffff;
+}
+.forest-campfire-feature__text p {
+  margin: 0;
+  color: rgba(241, 245, 249, 0.92);
+  font-size: 0.97rem;
+  line-height: 1.62;
+}
+.forest-campfire-feature__text p strong {
+  color: #fde047;
+}
+
+/* Bordo inferiore festonato/ondulato (scalloped wave) ispirato al sito Odoo */
+.forest-band__wave-bottom {
+  height: 36px;
+  margin-top: -1px;
+  background-color: var(--forest-bg);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 36' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L120,0 L120,10 Q90,36 60,10 Q30,36 0,10 Z' fill='black'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 36' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L120,0 L120,10 Q90,36 60,10 Q30,36 0,10 Z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-size: 120px 36px;
+  mask-size: 120px 36px;
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+  transition: background-color 0.4s ease;
+}
+
+/* ==========================================================================
+   BLOCCO 6B: VIAGGI IN TRENO FINO A ROMA (#roma)
+   ========================================================================== */
+.rome-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4.5vw, 3.5rem);
+  align-items: center;
+}
+
+.rome-grid__content p {
+  color: var(--text-muted);
+  margin: 0 0 1.05rem;
+}
+.rome-grid__content p strong {
+  color: var(--text-main);
+}
+
+.rome-Readout-box {
+  margin-top: 1.25rem;
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-tinted);
+  border-left: 4px solid var(--brand-navy);
+  font-size: 0.94rem;
+  color: var(--text-main);
+}
+html[data-theme="campfire"] .rome-Readout-box {
+  border-left-color: var(--agesci-gold);
+}
+
+/* ==========================================================================
+   BLOCCO 7: LA COMUNITÀ CAPI (STILE ODOO + CITAZIONE CON BORDO ROSSO)
+   ========================================================================== */
+.capi-odoo-grid {
+  display: grid;
+  grid-template-columns: 0.96fr 1.04fr;
+  gap: clamp(2rem, 4.5vw, 3.5rem);
+  align-items: center;
+}
+
+.capi-photo-card {
+  margin: 0;
+  background: var(--bg-surface);
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-lg);
+}
+.capi-photo-card img {
+  border-radius: var(--radius-md);
+  width: 100%;
+  object-fit: cover;
+}
+.capi-photo-card figcaption {
+  padding: 0.85rem 0.5rem 0.25rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+.capi-photo-card figcaption strong {
+  color: var(--text-main);
+}
+
+.capi-lead {
+  font-size: 1.08rem;
+  color: var(--text-main);
+  margin: 0 0 0.95rem;
+}
+.capi-body {
+  color: var(--text-muted);
+  margin: 0 0 1.35rem;
+}
+.capi-body strong {
+  color: var(--text-main);
+}
+
+.capi-quote {
+  margin: 0 0 1.4rem;
+  padding: 1.15rem 1.4rem;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  border-left: 5px solid var(--brand-red);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.08rem;
+  line-height: 1.5;
+  color: var(--text-main);
+  box-shadow: var(--shadow-sm);
+}
+
+.capi-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.capi-pills span {
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--brand-green);
+}
+html[data-theme="campfire"] .capi-pills span {
+  color: #86efac;
+}
+
+/* ==========================================================================
+   BLOCCO 8: 3 CARD SCALATE STILE ODOO + ESPLORATORE ETÀ (8-21 ANNI)
+   ========================================================================== */
+.staggered-branches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.35rem;
+  align-items: start;
+  margin-bottom: 2.5rem;
+}
+
+.stagger-card {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+/* Effetto scalato diagonale ispirato alle 3 card verdi del sito Odoo */
+.stagger-card:nth-child(2) {
+  margin-top: 1.4rem;
+}
+.stagger-card:nth-child(3) {
+  margin-top: 2.8rem;
+}
+
+.stagger-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.stagger-card.is-selected {
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-lg);
+}
+
+.stagger-card__head {
+  padding: 1.35rem 1.45rem;
+  color: #ffffff;
+}
+.stagger-card__head--lc {
+  background: linear-gradient(135deg, #2a724f 0%, #3a8a5f 100%);
+}
+.stagger-card__head--eg {
+  background: linear-gradient(135deg, #1f5c41 0%, #2d6a4f 100%);
+}
+.stagger-card__head--rs {
+  background: linear-gradient(135deg, #184735 0%, #1b365d 100%);
+}
+
+.stagger-card__age-pill {
+  display: inline-block;
+  padding: 0.24rem 0.72rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.2);
+  color: #fde047;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.45rem;
+}
+.stagger-card__head h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  line-height: 1.22;
+  margin: 0;
+  color: #ffffff;
+}
+
+.stagger-card__body {
+  padding: 1.35rem 1.45rem 1.45rem;
+}
+.stagger-card__body p {
+  margin: 0 0 0.95rem;
+  font-size: 0.93rem;
+  color: var(--text-muted);
+  line-height: 1.56;
+}
+.stagger-card__body p strong {
+  color: var(--text-main);
+}
+.stagger-card__action {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+}
+
+/* Simulatore interattivo con cursore d'età */
+.age-explorer {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.4rem, 3.5vw, 2.5rem);
+  box-shadow: var(--shadow-md);
+}
+
+.age-explorer__controls {
+  max-width: 780px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.age-display {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  margin-bottom: 0.85rem;
+}
+.age-display__label {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.age-display__number {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--accent-primary);
+}
+
+.age-slider-wrap {
+  margin-bottom: 0.5rem;
+}
+.age-range {
+  width: 100%;
+  height: 10px;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+}
+.age-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 0.35rem;
+}
+
+.branch-showcase {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 2rem;
+  align-items: center;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.branch-badge {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.branch-showcase[data-branch-color="lc"] .branch-badge {
+  background: rgba(234, 179, 8, 0.22);
+  color: #a16207;
+}
+html[data-theme="campfire"] .branch-showcase[data-branch-color="lc"] .branch-badge {
+  color: #fde047;
+}
+.branch-showcase[data-branch-color="eg"] .branch-badge {
+  background: rgba(45, 106, 79, 0.18);
+  color: #2d6a4f;
+}
+html[data-theme="campfire"] .branch-showcase[data-branch-color="eg"] .branch-badge {
+  color: #86efac;
+}
+.branch-showcase[data-branch-color="rs"] .branch-badge {
+  background: rgba(200, 35, 51, 0.16);
+  color: #c82333;
+}
+html[data-theme="campfire"] .branch-showcase[data-branch-color="rs"] .branch-badge {
+  color: #fca5a5;
+}
+
+.branch-showcase__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.5vw, 2.05rem);
+  margin: 0 0 0.8rem;
+}
+.branch-showcase__desc {
+  color: var(--text-muted);
+  margin: 0 0 1.3rem;
+}
+
+.branch-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+.branch-pillar {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-tinted);
+}
+.branch-pillar strong {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+.branch-pillar span {
+  font-weight: 700;
+  font-size: 0.93rem;
+}
+
+.branch-showcase__visual {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-tinted);
+  border: 1px solid var(--border-subtle);
+}
+.branch-showcase__visual img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.branch-photo-caption {
+  display: block;
+  padding: 0.7rem 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   BLOCCO 9 & 10: GALLERIA FOTOGRAFICA + FAQ GENITORI + MODULO PROVA
+   ========================================================================== */
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.4rem;
+}
+.filter-chip {
+  padding: 0.52rem 1.1rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 0.86rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.filter-chip.is-active {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+}
+
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 235px;
+  gap: 1.1rem;
+}
+.gallery-item {
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+.gallery-item:first-child {
+  grid-row: span 2;
+}
+.gallery-item[hidden] {
+  display: none;
+}
+.gallery-item__btn {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: #0f172a;
+  cursor: pointer;
+  position: relative;
+  display: block;
+}
+.gallery-item__btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+.gallery-item__btn:hover img {
+  transform: scale(1.06);
+}
+.gallery-item__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(11, 19, 32, 0.86) 0%, transparent 56%);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 1.1rem;
+  text-align: left;
+}
+.gallery-item__overlay strong {
+  font-size: 0.98rem;
+}
+.gallery-item__overlay small {
+  font-size: 0.78rem;
+  color: #fde68a;
+  margin-top: 3px;
+}
+
+.contact-faq-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+.faq-column .section-title {
+  text-align: left;
+}
+.faq-intro {
+  color: var(--text-muted);
+  margin: 0 0 1.5rem;
+}
+.faq-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.faq-item {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.faq-item summary {
+  list-style: none;
+  padding: 1.1rem 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary::after {
+  content: "+";
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-primary);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+.faq-item[open] summary::after {
+  content: "−";
+}
+.faq-item__body {
+  padding: 0 1.25rem 1.15rem;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+.faq-item__body p {
+  margin: 0;
+}
+.faq-item__body p strong {
+  color: var(--text-main);
+}
+
+.contact-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  box-shadow: var(--shadow-lg);
+}
+.contact-card__pill {
+  display: inline-block;
+  padding: 0.28rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: rgba(45, 106, 79, 0.14);
+  color: var(--brand-green);
+  font-weight: 800;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+html[data-theme="campfire"] .contact-card__pill {
+  color: #86efac;
+}
+.contact-card__header h3 {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  margin: 0 0 0.45rem;
+}
+.contact-card__header p {
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  margin: 0 0 1.35rem;
+}
+
+.trial-form {
+  display: grid;
+  gap: 1rem;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+.form-control {
+  width: 100%;
+  padding: 0.72rem 0.9rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-page);
+  color: var(--text-main);
+}
+.message-preview-box {
+  background: var(--bg-tinted);
+  border-radius: var(--radius-md);
+  padding: 0.95rem 1.1rem;
+  border: 1px dashed var(--border-subtle);
+}
+.message-preview-box__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 0.45rem;
+}
+.copy-btn {
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  padding: 0.28rem 0.65rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.message-preview-box__text {
+  margin: 0;
+  font-size: 0.92rem;
+  font-style: italic;
+}
+.contact-actions {
+  display: grid;
+  gap: 0.65rem;
+}
+.contact-actions__row {
+  display: flex;
+  gap: 0.65rem;
+}
+
+/* ==========================================================================
+   BANNER FINALE BLU NOTTE ISPIRATO A ODOO + FOOTER ISTITUZIONALE AGESCI.svg
+   ========================================================================== */
+.closing-cta {
+  background: linear-gradient(135deg, #162d4e 0%, #1b365d 55%, #132744 100%);
+  color: #ffffff;
+  padding-block: clamp(3.75rem, 6vw, 5.25rem);
+  text-align: center;
+}
+html[data-theme="campfire"] .closing-cta {
+  background: linear-gradient(135deg, #101c31 0%, #1c2c48 55%, #2a1811 100%);
+}
+
+.closing-cta__inner {
+  max-width: 780px;
+}
+.closing-cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.3vw, 2.75rem);
+  line-height: 1.18;
+  margin: 0 0 0.95rem;
+  color: #ffffff;
+}
+.closing-cta p {
+  font-size: 1.08rem;
+  color: rgba(241, 245, 249, 0.9);
+  margin: 0 auto 1.9rem;
+  max-width: 64ch;
+}
+.closing-cta p strong {
+  color: #fde047;
+}
+.closing-cta__btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.site-footer {
+  background: #0d1b30;
+  color: var(--text-on-deep);
+  padding-block: 3.2rem 2.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+html[data-theme="campfire"] .site-footer {
+  background: #060b14;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 2rem;
+  align-items: center;
+  padding-bottom: 2.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-col strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  color: #ffffff;
+  margin-bottom: 0.35rem;
+}
+.footer-col p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--text-muted-on-deep);
+  line-height: 1.6;
+}
+.footer-col a {
+  color: #fde047;
+  text-decoration: none;
+  font-weight: 600;
+}
+.footer-col a:hover {
+  text-decoration: underline;
+}
+.footer-col--right {
+  text-align: right;
+}
+
+.footer-logo-center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.footer-emblem-wrap {
+  display: inline-grid;
+  place-items: center;
+  background: #ffffff;
+  padding: 10px 12px;
+  border-radius: 18px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.32), 0 0 0 3px rgba(245, 193, 20, 0.45);
+  margin-bottom: 0.7rem;
+}
+.footer-emblem-wrap img {
+  width: 48px;
+  height: auto;
+}
+.footer-logo-center strong {
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  color: #ffffff;
+}
+.footer-logo-center span {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--text-muted-on-deep);
+  margin-top: 0.2rem;
+}
+
+.footer-bottom {
+  padding-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.86rem;
+  color: var(--text-muted-on-deep);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.15rem;
+}
+.footer-links a {
+  color: var(--text-muted-on-deep);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.footer-links a:hover {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   LIGHTBOX NATIVO <dialog>
+   ========================================================================== */
+.lightbox {
+  border: 0;
+  border-radius: var(--radius-lg);
+  padding: 0;
+  max-width: min(960px, 94vw);
+  width: 100%;
+  background: #0d1726;
+  color: #ffffff;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+}
+.lightbox::backdrop {
+  background: rgba(6, 11, 20, 0.84);
+  backdrop-filter: blur(8px);
+}
+.lightbox__content {
+  position: relative;
+  padding: 1.25rem;
+}
+.lightbox__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 5;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.lightbox__close:hover {
+  background: var(--brand-red);
+}
+.lightbox__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  background: #070d17;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  min-height: 320px;
+  max-height: 70vh;
+}
+.lightbox__stage img {
+  max-height: 70vh;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.lightbox__nav:hover {
+  background: var(--brand-red);
+}
+.lightbox__nav--prev {
+  left: 12px;
+}
+.lightbox__nav--next {
+  right: 12px;
+}
+.lightbox__caption-bar {
+  padding: 1rem 0.5rem 0.25rem;
+}
+.lightbox__counter {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #fbbf24;
+  text-transform: uppercase;
+}
+.lightbox__caption-bar h3 {
+  font-family: var(--font-display);
+  margin: 0.2rem 0 0.35rem;
+  font-size: 1.3rem;
+}
+.lightbox__caption-bar p {
+  margin: 0;
+  font-size: 0.94rem;
+  color: #cbd5e1;
+}
+
+/* ==========================================================================
+   ANIMAZIONI SCROLL REVEAL & PREFERS-REDUCED-MOTION
+   ========================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ========================================================================== */
+@media (max-width: 1140px) {
+  .hide-tablet {
+    display: none;
+  }
+  .menu-toggle {
+    display: flex;
+  }
+
+  .main-nav {
+    position: fixed;
+    top: 78px;
+    left: 0;
+    right: 0;
+    background: #142747;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.05rem;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+    transform: translateY(-135%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  html[data-theme="campfire"] .main-nav {
+    background: #09111f;
+  }
+  .main-nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .nav-cta-mobile {
+    display: inline-flex;
+  }
+
+  .hero__grid,
+  .identity-layout,
+  .reel-showcase,
+  .stereotipi-intro-grid,
+  .craft-odoo-grid,
+  .knot-lab,
+  .forest-values-grid,
+  .forest-campfire-feature,
+  .rome-grid,
+  .capi-odoo-grid,
+  .staggered-branches,
+  .branch-showcase,
+  .contact-faq-grid,
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+
+  .stagger-card:nth-child(2),
+  .stagger-card:nth-child(3) {
+    margin-top: 0;
+  }
+
+  .hero__trust-strip {
+    grid-template-columns: 1fr;
+  }
+  .floating-card--top {
+    left: 0;
+  }
+  .floating-card--bottom {
+    right: 0;
+  }
+
+  .footer-top {
+    text-align: center;
+  }
+  .footer-col--right {
+    text-align: center;
+  }
+  .footer-bottom {
+    justify-content: center;
+    text-align: center;
+  }
+  .footer-links {
+    justify-content: center;
+  }
+
+  .photo-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .theme-toggle__label {
+    display: none;
+  }
+  .agesci-emblem-card,
+  .youth-credit-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .skill-cards-2x2,
+  .form-row,
+  .identity-highlights,
+  .branch-pillars,
+  .contact-actions__row {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+  .photo-gallery {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 260px;
+  }
+  .gallery-item:first-child {
+    grid-row: span 1;
+    height: 360px;
+  }
+  .myth-unlocked {
+    flex-direction: column;
+    text-align: center;
+  }
+}
